@@ -33,64 +33,38 @@ class Node:
  
  
 def split(root: Node, value: int) -> Tuple[Node, Node]:
-    """
-    We split current tree into 2 trees with value:
- 
-    Left tree contains all values less than split value.
-    Right tree contains all values greater or equal, than split value
-    """
-    if root is None:  # None tree is split into 2 Nones
+  
+    if root is None:  # dos trees None
         return (None, None)
     elif root.value is None:
         return (None, None)
     else:
         if value < root.value:
-            """
-            Right tree's root will be current node.
-            Now we split(with the same value) current node's left son
-            Left tree: left part of that split
-            Right tree's left son: right part of that split
-            """
+        
             left, root.left = split(root.left, value)
             return (left, root)
         else:
-            """
-            Just symmetric to previous case
-            """
+            
             root.right, right = split(root.right, value)
             return (root, right)
  
  
 def merge(left: Node, right: Node) -> Node:
-    """
-    We merge 2 trees into one.
-    Note: all left tree's values must be less than all right tree's
-    """
+   
     if (not left) or (not right):  # If one node is None, return the other
         return left or right
     elif left.prior < right.prior:
-        """
-        Left will be root because it has more priority
-        Now we need to merge left's right son and right tree
-        """
+       
         left.right = merge(left.right, right)
         return left
     else:
-        """
-        Symmetric as well
-        """
+       
         right.left = merge(left, right.left)
         return right
  
  
 def insert(root: Node, value: int) -> Node:
-    """
-    Insert element
- 
-    Split current tree with a value into left, right,
-    Insert new node into the middle
-    Merge left, node, right into root
-    """
+  
     node = Node(value)
     left, right = split(root, value)
     return merge(merge(left, node), right)
@@ -162,8 +136,8 @@ def main():
     """After each command, program prints treap"""
     root = None
     print(
-        "enter numbers to create a tree, + value to add value into treap, "
-        "- value to erase all nodes with value. 'q' to quit. "
+        "Ingrese cualquier número con el comando de /+/ para agregar un valor al treap y /-/ para eliminar. "
+        "Utilice 'q' para cerrar el programa. "
     )
  
     args = input()
@@ -175,7 +149,7 @@ def main():
         #print(self.priority)
         args = input()
  
-    print("good bye!")
+    print("hasta pronto!")
  
  
 if __name__ == "__main__":
